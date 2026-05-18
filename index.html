@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Handlee&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="./img/hbd.png">
+  <title>Happy Birthday Kinanti Permata Sitaresmi 🎂</title>
+</head>
+<body>
+
+  <audio id="background-music" src="./music/kaka.mp3" preload="auto" loop></audio>
+  <div id="particles-wrap" class="particles-wrap"></div>
+
+  <!-- ══════════════════════════════════════
+       HALAMAN 1 — BIRTHDAY OPENING
+  ══════════════════════════════════════ -->
+  <div id="page-opening" class="page active">
+    <div class="opening-content">
+
+      <div class="ornament-top animate__animated animate__fadeInDown">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond">✦</span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="site-title-wrap animate__animated animate__fadeInDown">
+        <p class="site-title-eyebrow">✦ &nbsp; Happy Birthday &nbsp; ✦</p>
+        <h2 class="site-title-main">A Lifetime in Letters</h2>
+        <p class="site-title-sub">for</p>
+      </div>
+
+      <div class="kaka-name-wrap animate__animated animate__fadeInDown animate__delay-1s">
+        <span class="kaka-name-corner-tr"></span>
+        <span class="kaka-name-corner-bl"></span>
+        <div class="kaka-name-stars">
+          <span class="kaka-star">✦</span>
+          <span class="kaka-star">✧</span>
+          <span class="kaka-star">✦</span>
+          <span class="kaka-star">✧</span>
+          <span class="kaka-star">✦</span>
+          <span class="kaka-star">✧</span>
+        </div>
+        <h1 class="kaka-name">Kinanti Permata Sitaresmi</h1>
+        <div class="kaka-name-ornament">
+          <span class="ornament-line"></span>
+          <span class="ornament-diamond">🌸</span>
+          <span class="ornament-line"></span>
+        </div>
+      </div>
+
+      <!-- Paper ucapan dari Raga -->
+      <div class="paper-luxury animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="paper-luxury-header">
+          <span class="paper-ornament">❧</span>
+          <span class="paper-title-text">Sebuah Doa & Ucapan untuk Kinanti</span>
+          <span class="paper-ornament">❧</span>
+        </div>
+        <div class="paper-luxury-lines">
+          <p id="teks-opening" class="teks-luxury"></p>
+        </div>
+        <div class="paper-luxury-footer">
+          <span class="paper-from">— Raga, adikmu yang selalu mendoakanmu 🤍</span>
+        </div>
+      </div>
+
+      <!-- Mail Counter -->
+      <div class="mail-counter-section animate__animated animate__fadeInUp animate__delay-2s">
+        <div class="mail-counter-inner">
+          <div class="mail-icon-wrap">
+            <span class="mail-icon">💌</span>
+            <span id="mail-badge" class="mail-badge">0</span>
+          </div>
+          <div class="mail-counter-text">
+            <p class="mail-counter-label">Ucapan telah dikirimkan</p>
+            <p id="mail-counter-desc" class="mail-counter-desc">Jadilah yang pertama mengucapkan! 🌟</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="cta-wrap animate__animated animate__fadeInUp animate__delay-2s">
+        <button id="btn-write-wish" class="btn-luxury">
+          <span class="btn-luxury-icon">✍️</span>
+          <span>Tulis Ucapan untuk Kinanti</span>
+        </button>
+      </div>
+
+      <div class="ornament-bottom animate__animated animate__fadeInUp animate__delay-2s">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond">✦</span>
+        <span class="ornament-line"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       HALAMAN 2 — FORM UCAPAN
+  ══════════════════════════════════════ -->
+  <div id="page-form" class="page">
+    <div class="form-wrap animate__animated animate__fadeInUp">
+
+      <button id="btn-back" class="btn-back">← Kembali</button>
+
+      <div class="form-header">
+        <div class="ornament-top">
+          <span class="ornament-line"></span>
+          <span class="ornament-diamond">✦</span>
+          <span class="ornament-line"></span>
+        </div>
+        <h3 class="form-title">💌 Ucapan untuk Kinanti</h3>
+        <p class="form-subtitle">Tulis ucapan terbaikmu untuk Kinanti Permata Sitaresmi, boleh kirim foto juga! 🌸</p>
+      </div>
+
+      <div id="form-alert" class="form-alert d-none"></div>
+
+      <div class="paper-luxury form-paper-luxury">
+        <div class="paper-luxury-header">
+          <span class="paper-ornament">❧</span>
+          <span class="paper-title-text">Ucapanmu untuk Kinanti</span>
+          <span class="paper-ornament">❧</span>
+        </div>
+        <div class="paper-luxury-lines">
+          <input type="text" id="inp-name" class="paper-inp" placeholder="✨ Nama kamu..." maxlength="50"/>
+          <div class="paper-divider"></div>
+          <textarea id="inp-message" class="paper-inp paper-ta" placeholder="Tulis ucapanmu untuk Kinanti di sini..." maxlength="500" rows="6"></textarea>
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           MULTI PHOTO UPLOAD — BARU
+           (ganti seluruh blok photo lama)
+      ══════════════════════════════════════ -->
+      <div class="photo-upload-section">
+
+        <!-- Bar counter: angka + dots -->
+        <div class="photo-count-bar">
+          <span class="photo-count-label">
+            📷 Foto <span id="photo-count-num">0</span>/5
+            <span class="optional-tag">opsional</span>
+          </span>
+          <div class="photo-count-dots">
+            <span class="photo-dot"></span>
+            <span class="photo-dot"></span>
+            <span class="photo-dot"></span>
+            <span class="photo-dot"></span>
+            <span class="photo-dot"></span>
+          </div>
+        </div>
+
+        <!-- Drop / click area -->
+        <div class="photo-upload-area" id="photo-drop-area">
+          <input type="file" id="inp-photo" accept="image/*" multiple hidden>
+          <div id="photo-placeholder" class="photo-placeholder">
+            <span class="photo-icon">📷</span>
+            <p>Tambah foto <span class="optional-tag">opsional</span></p>
+            <small>Klik atau drag · maks 5 foto · maks 5MB per foto</small>
+          </div>
+        </div>
+
+        <!-- Grid preview thumbnail — WAJIB ADA -->
+        <div id="photo-multi-preview" class="photo-multi-preview"></div>
+
+      </div>
+      <!-- ══ END MULTI PHOTO UPLOAD ══ -->
+
+      <button id="btn-submit" class="btn-luxury" style="width:100%">
+        <span id="btn-submit-text">Kirim Ucapan untuk Kinanti 💝</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MODAL SUKSES
+  ══════════════════════════════════════ -->
+  <div id="modal-success" class="modal-overlay d-none">
+    <div class="modal-box animate__animated animate__zoomIn">
+      <div class="modal-sparkle">✨</div>
+      <div class="modal-icon">🎉</div>
+      <h4>Ucapan Terkirim!</h4>
+      <p>Makasih udah ngucapin ke Kinanti ya! 💕<br>Semoga doamu diijabah Allah. 🤍</p>
+      <button id="modal-ok" class="btn-luxury" style="width:100%">Kembali ke Halaman Utama</button>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://kit.fontawesome.com/61e5120832.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Handlee&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="./img/hbd.png">
+  <title>Wall Ucapan — Kinanti Permata Sitaresmi 💌</title>
+  <style>
+    /* ── Select Mode ── */
+    .wish-card {
+      position: relative;
+      cursor: default;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .25s;
+    }
+    .select-mode .wish-card {
+      cursor: pointer;
+    }
+    .select-mode .wish-card:hover {
+      border-color: rgba(167,139,250,.55);
+    }
+    .wish-card.selected {
+      border-color: #a855f7 !important;
+      box-shadow:
+        0 0 0 2px rgba(168,85,247,.45),
+        0 2px 0 rgba(124,58,237,.55),
+        0 8px 28px rgba(109,40,217,.40) !important;
+    }
+
+    /* Checkbox overlay */
+    .card-checkbox {
+      display: none;
+      position: absolute;
+      top: 12px; left: 12px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(30,10,60,.75);
+      border: 2px solid rgba(167,139,250,.55);
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: all .2s;
+      font-size: 13px;
+      backdrop-filter: blur(4px);
+    }
+    .select-mode .card-checkbox { display: flex; }
+    .wish-card.selected .card-checkbox {
+      background: linear-gradient(135deg,#7c3aed,#a855f7);
+      border-color: #c084fc;
+      box-shadow: 0 0 8px rgba(168,85,247,.55);
+    }
+
+    /* Selected overlay shimmer */
+    .wish-card.selected::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: rgba(109,40,217,.08);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── Select Action Bar (floating bottom) ── */
+    .select-action-bar {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 680px;
+      background: rgba(30,10,60,.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(167,139,250,.35);
+      border-radius: 20px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9000;
+      box-shadow: 0 -4px 32px rgba(109,40,217,.45);
+      transition: bottom .35s cubic-bezier(.34,1.56,.64,1);
+    }
+    .select-action-bar.visible { bottom: 20px; }
+
+    .select-bar-counter {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #d8b4fe;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .select-bar-counter span {
+      color: #f3e8ff;
+      font-size: 18px;
+    }
+
+    .select-bar-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn-select-all {
+      background: rgba(109,40,217,.35);
+      border: 1px solid rgba(167,139,250,.40);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #d8b4fe;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .btn-select-all:hover {
+      background: rgba(109,40,217,.60);
+      color: #fff;
+    }
+
+    .btn-delete-selected {
+      background: linear-gradient(135deg,#991b1b,#dc2626);
+      border: none;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: 0 4px 14px rgba(220,38,38,.40);
+      white-space: nowrap;
+    }
+    .btn-delete-selected:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(220,38,38,.55); }
+    .btn-delete-selected:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .btn-cancel-select {
+      background: transparent;
+      border: 1px solid rgba(167,139,250,.30);
+      border-radius: 50px;
+      padding: 8px 14px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: rgba(167,139,250,.75);
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .btn-cancel-select:hover { color: #fff; border-color: rgba(167,139,250,.60); }
+
+    /* ── Kelola Button ── */
+    .btn-kelola {
+      background: rgba(109,40,217,.25);
+      border: 1px solid rgba(167,139,250,.35);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #c084fc;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-kelola:hover { background: rgba(109,40,217,.50); color: #fff; }
+    .btn-kelola.active {
+      background: rgba(220,38,38,.25);
+      border-color: rgba(220,38,38,.45);
+      color: #fca5a5;
+    }
+
+    /* ── Delete single button (non-select mode) ── */
+    .btn-delete-wish {
+      background: rgba(153,27,27,.25);
+      border: 1px solid rgba(220,38,38,.35);
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      color: #fca5a5;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+      margin-left: auto;
+    }
+    .btn-delete-wish:hover { background: rgba(220,38,38,.45); color: #fff; }
+    .select-mode .btn-delete-wish { display: none; }
+
+    /* ── Wish card header flex fix ── */
+    .wish-card-header { position: relative; }
+  </style>
+</head>
+<body>
+
+  <div id="particles-wrap" class="particles-wrap"></div>
+
+  <div class="dashboard-page">
+
+    <!-- HERO -->
+    <div class="dash-hero">
+      <p class="dash-hero-eyebrow">✦ &nbsp; Wall Ucapan &nbsp; ✦</p>
+      <h1 class="dash-hero-title">Kinanti Permata Sitaresmi</h1>
+      <p class="dash-hero-sub">Kumpulan doa & ucapan dari orang-orang yang menyayangimu 🌸</p>
+      <div class="ornament-top" style="margin:16px auto 0">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond">✦</span>
+        <span class="ornament-line"></span>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="dash-stats">
+      <div class="dash-stat-card">
+        <span class="dash-stat-icon">💌</span>
+        <span class="dash-stat-num" id="stat-total">0</span>
+        <span class="dash-stat-label">Ucapan</span>
+      </div>
+      <div class="dash-stat-card">
+        <span class="dash-stat-icon">📷</span>
+        <span class="dash-stat-num" id="stat-photos">0</span>
+        <span class="dash-stat-label">Foto</span>
+      </div>
+      <div class="dash-stat-card">
+        <span class="dash-stat-icon">🌟</span>
+        <span class="dash-stat-num" id="stat-today">0</span>
+        <span class="dash-stat-label">Hari Ini</span>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery-section">
+      <div class="dash-section-title">
+        <h3>🖼️ Galeri Foto</h3>
+        <div class="title-line"></div>
+        <span id="gallery-count-label" style="font-size:12px;color:rgba(167,139,250,.6);font-weight:700;white-space:nowrap;"></span>
+      </div>
+      <div id="gallery-wrap"></div>
+    </div>
+
+    <!-- WISHES WALL -->
+    <div class="wishes-section">
+      <div class="dash-section-title">
+        <h3>💬 Semua Ucapan</h3>
+        <div class="title-line"></div>
+        <button id="btn-kelola" class="btn-kelola">⚙️ Kelola</button>
+      </div>
+      <div id="wishes-wall">
+        <div class="wall-loading">
+          <span style="font-size:32px;display:block;margin-bottom:10px">✨</span>
+          Memuat ucapan...
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SELECT ACTION BAR -->
+  <div id="select-action-bar" class="select-action-bar">
+    <div class="select-bar-counter">
+      <span id="select-count">0</span> dipilih
+    </div>
+    <div class="select-bar-actions">
+      <button id="btn-select-all"  class="btn-select-all">☑️ Semua</button>
+      <button id="btn-deselect-all" class="btn-select-all" style="display:none">□ Hapus Pilihan</button>
+      <button id="btn-delete-selected" class="btn-delete-selected" disabled>🗑️ Hapus</button>
+      <button id="btn-cancel-select" class="btn-cancel-select">✕ Batal</button>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox-overlay d-none">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lb-close">✕</button>
+      <button class="lightbox-nav lightbox-nav-prev" id="lb-prev">‹</button>
+      <button class="lightbox-nav lightbox-nav-next" id="lb-next">›</button>
+      <div class="lightbox-img-wrap">
+        <img id="lb-img" src="" alt="">
+      </div>
+      <div class="lightbox-info">
+        <span class="lightbox-info-name" id="lb-name"></span>
+        <span class="lightbox-info-time" id="lb-time"></span>
+      </div>
+      <div class="lightbox-counter" id="lb-counter"></div>
+    </div>
+  </div>
+
+  <!-- MODAL KONFIRMASI DELETE -->
+  <div id="modal-delete" class="modal-overlay d-none">
+    <div class="modal-box">
+      <div class="modal-sparkle">⚠️</div>
+      <div class="modal-icon">🗑️</div>
+      <h4 id="modal-delete-title">Hapus Ucapan?</h4>
+      <p id="modal-delete-desc">Ucapan ini akan dihapus permanen beserta fotonya.</p>
+      <div style="display:flex;gap:10px;margin-top:4px">
+        <button id="modal-delete-cancel" class="btn-back" style="flex:1;margin:0;border-radius:50px;padding:12px">Batal</button>
+        <button id="modal-delete-confirm" class="btn-luxury" style="flex:1;background:linear-gradient(135deg,#991b1b,#dc2626,#ef4444);box-shadow:0 6px 20px rgba(220,38,38,.45)">🗑️ Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
